@@ -1,14 +1,15 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Heebo, Raleway } from 'next/font/google';
+import { Heebo } from 'next/font/google';
 import './globals.css';
 
-const heebo = Heebo({ subsets: ['latin'], weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'] });
-const raleway = Raleway({
+const heebo = Heebo({
   subsets: ['latin'],
-  weight: ['100', '200', '300', '400', '500', '600', '700', '800', '900'],
-  style: ['normal', 'italic']
+  weight: ['400','700'],
+  variable: '--font-heebo',
+  display: 'swap',
 });
+
 
 export const metadata: Metadata = {
   title: 'Memorama',
@@ -23,7 +24,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={`${heebo.className} ${raleway.className} font-sans`}>{children}</body>
+      <body className={heebo.className}>{children}</body>
     </html>
   );
 }
