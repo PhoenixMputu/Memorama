@@ -1,8 +1,8 @@
 import React from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
-import { IoEyeOutline } from 'react-icons/io5';
 
+import { IoEyeOutline } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
 
 const SignIn = () => {
@@ -71,6 +71,12 @@ const SignIn = () => {
                 <FcGoogle size={24} />
                 {'Continuer avec Google'}
               </button>
+              <p className="text-base">
+              {"Je n'ai pas de compte ?"}{' '}
+              <Link href={'/signup'} className="text-blue-500 hover:text-blue-600 active:text-blue-700">
+                Créer un compte
+              </Link>
+            </p>
             </div>
           </div>
         </form>
