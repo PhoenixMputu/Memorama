@@ -66,12 +66,12 @@ const SignIn = () => {
               </button>
               <button
                 type="button"
-                className="w-full flex justify-center items-center gap-2 py-2 text-center text-shark-950 text-base font-medium rounded-lg border border-shark-500 hover:border-shark-600"
+                className="w-full flex justify-center font-heebo items-center gap-2 py-2 text-center text-shark-950 text-base font-medium rounded-lg border border-shark-500 hover:border-shark-600"
               >
                 <FcGoogle size={24} />
                 {'Continuer avec Google'}
               </button>
-              <p className="text-base">
+              <p className="text-base font-heebo">
               {"Je n'ai pas de compte ?"}{' '}
               <Link href={'/signup'} className="text-blue-500 hover:text-blue-600 active:text-blue-700">
                 Créer un compte
