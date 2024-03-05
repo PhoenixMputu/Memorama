@@ -79,7 +79,7 @@ const Signup = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="confirmPassword" className="text-base">
-              Confirmé le mot de passe
+              Confirmation du mot de passe
             </label>
             <input
               type="password"
