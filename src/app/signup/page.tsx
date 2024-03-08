@@ -38,7 +38,7 @@ const Signup = () => {
       .then((response) => {
         const token = response.data.token;
         setIsLoading(false);
-        router.push('/signin?token='+token);
+        router.push('/confirm-email?token='+token);
       })
       .catch((error) => {
         if (error.code === 'ERR_BAD_REQUEST') {
