@@ -66,7 +66,7 @@ const SignIn = () => {
               </button>
               <button
                 type="button"
-                className="w-full flex justify-center font-heebo items-center gap-2 py-2 text-center text-shark-950 text-base font-medium rounded-lg border border-shark-500 hover:border-shark-600"
+                className="w-full flex justify-center font-heebo items-center gap-2 py-2 text-center text-shark-950 text-base font-medium rounded-lg border border-shark-500 hover:border-gray-700"
               >
                 <FcGoogle size={24} />
                 {'Continuer avec Google'}
