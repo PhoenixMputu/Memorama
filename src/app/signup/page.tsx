@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation';
 import axios from 'axios';
 import { Toaster, toast } from 'sonner';
 
@@ -29,7 +29,7 @@ const Signup = () => {
     if (data.password !== data.confirmPassword) return;
 
     axios
-      .post(`${process.env.NEXT_PUBLIC_API_URL!}/auth/signup}`, {
+      .post(`${process.env.apiUrl}/auth/signup`, {
         lastname: data.lastname,
         firstname: data.firstname,
         email: data.email,
@@ -37,25 +37,24 @@ const Signup = () => {
       })
       .then((response) => {
         const token = response.data.token;
+        const email = response.data.user.email;
         setIsLoading(false);
-        router.push('/confirm-email?token='+token);
+        router.push('/confirm-email?email=' + email + '&token=' + token);
       })
       .catch((error) => {
+        console.log(error);
+
         if (error.code === 'ERR_BAD_REQUEST') {
-          toast.error(error?.response?.data?.message, {
-            duration: 5000,
+          toast.error(error?.response?.data?.message || error?.message, {
+            duration: 5000
           });
-        }
-
-        else if (error.code === 'ERR_NETWORK') {
+        } else if (error.code === 'ERR_NETWORK') {
           toast.error('Pas de connexion internet', {
-            duration: 5000,
+            duration: 5000
           });
-        }
-
-        else {
+        } else {
           toast.error(error.message, {
-            duration: 5000,
+            duration: 5000
           });
         }
         setIsLoading(false);
@@ -83,7 +82,7 @@ const Signup = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="lastname" className="text-base font-heebo">
-              Nom
+              {process.env.apiUrl}
             </label>
             <input
               type="text"

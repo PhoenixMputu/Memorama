@@ -15,7 +15,7 @@ const ConfirmEmail = () => {
             Code de confirmation
           </label>
           <input
-            type="code"
+            type="number"
             name="code"
             id="code"
             autoComplete="on"
