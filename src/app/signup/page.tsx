@@ -82,7 +82,7 @@ const Signup = () => {
           </div>
           <div className="flex flex-col gap-2">
             <label htmlFor="lastname" className="text-base font-heebo">
-              {process.env.apiUrl}
+              Nom
             </label>
             <input
               type="text"
