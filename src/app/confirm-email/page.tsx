@@ -45,7 +45,6 @@ const ConfirmEmail = () => {
         setIsSecondLoading(false);
       })
       .catch((error) => {
-        console.log(error);
         if (error.code === 'ERR_BAD_REQUEST') {
           toast.error(error?.response?.data?.message || error?.message, {
             duration: 5000

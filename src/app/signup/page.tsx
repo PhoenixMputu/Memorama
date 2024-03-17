@@ -43,7 +43,7 @@ const Signup = () => {
       })
       .catch((error) => {
         console.log(error);
-
+        
         if (error.code === 'ERR_BAD_REQUEST') {
           toast.error(error?.response?.data?.message || error?.message, {
             duration: 5000
@@ -60,6 +60,10 @@ const Signup = () => {
         setIsLoading(false);
       });
   };
+
+  const authWithGoogle = () => {
+		window.open(`${process.env.apiUrl}/auth/google-auth`, '_self');
+	};
 
   return (
     <div>
@@ -200,6 +204,7 @@ const Signup = () => {
             </button>
             <button
               type="button"
+              onClick={authWithGoogle}
               className="w-full flex justify-center font-heebo items-center gap-2 py-2 text-center text-shark-950 text-base font-medium rounded-lg border border-shark-500 hover:border-gray-700"
             >
               <FcGoogle size={24} />
