@@ -9,6 +9,7 @@ import Loader from '../components/Loader';
 import { IoEyeOutline, IoEyeOffOutline } from 'react-icons/io5';
 import { FcGoogle } from 'react-icons/fc';
 import { User } from '../utils/types';
+import axios from 'axios';
 
 const SignIn = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -22,8 +23,21 @@ const SignIn = () => {
 
   const onSubmit: SubmitHandler<User> = (data) => {
     setIsLoading(true);
-    console.log(data);
-    router.push('/');
+    axios
+      .post(`${process.env.apiUrl}/auth/signin`, {
+        email: data.email,
+        password: data.password
+      })
+      .then(() => {
+        setIsLoading(false);
+        router.push('/');
+      })
+      .catch((error) => {
+        toast.error(error?.response?.data || error?.message || "Il y a eu une erreur", {
+          duration: 5000
+        });
+        setIsLoading(false);
+      });
   };
 
   const authWithGoogle = () => {
@@ -33,7 +47,7 @@ const SignIn = () => {
   return (
     <div>
       <Head>
-        <title>Memorama - Signin</title>
+        <title>Memorama - Connexion</title>
         <meta
           name="description"
           content="Connectez-vous à Memorama, la plateforme innovante pour la publication, la lecture et la vérification de mémoires et de rapports de stage. Accédez à votre compte et profitez de nos fonctionnalités avancées pour gérer vos documents académiques en toute sécurité."
@@ -93,7 +107,11 @@ const SignIn = () => {
                 className="outline-none border-none w-4/5"
                 aria-invalid={errors.password ? 'true' : 'false'}
               />
-              {showPassord ? <IoEyeOutline onClick={() => setShowPassord(!showPassord)} />: <IoEyeOffOutline onClick={() => setShowPassord(!showPassord)} />}
+              {showPassord ? (
+                <IoEyeOutline onClick={() => setShowPassord(!showPassord)} />
+              ) : (
+                <IoEyeOffOutline onClick={() => setShowPassord(!showPassord)} />
+              )}
             </div>
             {errors.password && (
               <p className="text-red-500 text-sm">

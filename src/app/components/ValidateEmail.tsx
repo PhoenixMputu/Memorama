@@ -1,23 +1,20 @@
 'use client';
 import React, { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Loader from '../components/Loader';
-import axios from 'axios';
-import { Toaster, toast } from 'sonner';
+// import axios from 'axios';
+// import { Toaster, toast } from 'sonner';
 
 interface IFormInput {
   code: number | string;
 }
 
-const ConfirmEmail = () => {
+const ValidateEmail = () => {
+  // eslint-disable-next-line no-unused-vars
   const router = useRouter();
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isSecondLoading, setIsSecondLoading] = useState<boolean>(false);
-  const searchParams = useSearchParams();
-  const email = searchParams.get('email');
-  const token = searchParams.get('token');
   const {
     register,
     handleSubmit,
@@ -26,85 +23,15 @@ const ConfirmEmail = () => {
 
   const handleClick = () => {
     setIsSecondLoading(true);
-    axios
-      .post(
-        `${process.env.apiUrl}/auth/resend-email`,
-        {
-          email: email,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
-      .then(() => {
-        toast.success('Email envoyé avec success', {
-          duration: 5000
-        });
-        setIsSecondLoading(false);
-      })
-      .catch((error) => {
-        if (error.code === 'ERR_BAD_REQUEST') {
-          toast.error(error?.response?.data?.message || error?.message, {
-            duration: 5000
-          });
-        } else if (error.code === 'ERR_NETWORK') {
-          toast.error('Pas de connexion internet', {
-            duration: 5000
-          });
-        } else {
-          toast.error('Code Invalide' || error.message, {
-            duration: 5000
-          });
-        }
-        setIsSecondLoading(false);
-      });
   }
 
   const onSubmit: SubmitHandler<IFormInput> = (data) => {
     setIsLoading(true);
-
-    axios
-      .post(
-        `${process.env.apiUrl}/auth/confirm-email`,
-        {
-          email: email,
-          code: data.code.toString(),
-          token: token
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`
-          }
-        }
-      )
-      .then(() => {
-        setIsLoading(false);
-        router.push('/');
-      })
-      .catch((error) => {
-        console.log(error);
-        if (error.code === 'ERR_BAD_REQUEST') {
-          toast.error(error?.response?.data?.message || error?.message, {
-            duration: 5000
-          });
-        } else if (error.code === 'ERR_NETWORK') {
-          toast.error('Pas de connexion internet', {
-            duration: 5000
-          });
-        } else {
-          toast.error(error.message, {
-            duration: 5000
-          });
-        }
-        setIsLoading(false);
-      });
+    console.log(data);
   };
 
   return (
     <main className="bg-white w-full h-screen flex flex-col justify-center items-center">
-      <Toaster richColors position="top-center" expand={false} />
       <form onSubmit={handleSubmit(onSubmit)} className="p-4 w-11/12 md:w-[400px] flex flex-col justify-center gap-y-4">
         <div className="flex flex-col gap-2">
           <h1 className="text-shark-950 text-2xl font-medium font-heebo">Confirmez votre email</h1>
@@ -156,4 +83,4 @@ const ConfirmEmail = () => {
   );
 };
 
-export default ConfirmEmail;
+export default ValidateEmail;
