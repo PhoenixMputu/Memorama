@@ -41,28 +41,14 @@ const Signup = () => {
           }
         }
       )
-      .then((response) => {
-        const token = response.data.token;
-        const email = response.data.user.email;
+      .then(() => {
         setIsLoading(false);
-        router.push('/confirm-email?email=' + email + '&token=' + token);
+        router.push('/');
       })
       .catch((error) => {
-        console.log(error);
-
-        if (error.code === 'ERR_BAD_REQUEST') {
-          toast.error(error?.response?.data?.message || error?.message, {
-            duration: 5000
-          });
-        } else if (error.code === 'ERR_NETWORK') {
-          toast.error('Pas de connexion internet', {
-            duration: 5000
-          });
-        } else {
-          toast.error(error.message, {
-            duration: 5000
-          });
-        }
+        toast.error(error?.response?.data || error?.message || 'Il y a eu une erreur', {
+          duration: 5000
+        });
         setIsLoading(false);
       });
   };
