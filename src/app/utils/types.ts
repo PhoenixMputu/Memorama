@@ -17,7 +17,7 @@ export interface IMetadata {
   siteUrl?: string;
   canonicalUrl: string;
   articleModifiedTime?: string;
-  ogTwitterImage: string;
+  ogTwitterImage?: string;
   ogLocale?: string;
   ogType: string;
   ogImageUrl?: string;
