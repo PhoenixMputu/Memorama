@@ -1,3 +1,4 @@
+import { cookies } from 'next/headers'
 import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
@@ -11,15 +12,17 @@ const loggedOutRoutes = [
   '/send-email-success'
 ];
 
-const sessionStatus = true;
-
 export async function middleware(request: NextRequest) {
+  const cookieStore = cookies();
+  const token = cookieStore.get('auth-cookie');
+  console.log(token);
+  
 
-  if (sessionStatus && loggedOutRoutes.includes(request.nextUrl.pathname)) {
-    return NextResponse.rewrite(new URL('/', request.url));
+  if (token && loggedOutRoutes.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL('/', request.url));
   }
 
-  if (!sessionStatus && loggedInRoutes.includes(request.nextUrl.pathname)) {
-    return NextResponse.rewrite(new URL('/', request.url));
+  if (!token && loggedInRoutes.includes(request.nextUrl.pathname)) {
+    return NextResponse.redirect(new URL('/', request.url));
   }
 }
