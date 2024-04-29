@@ -1,7 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useSearchParams } from 'next/navigation';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import Loader from '../components/Loader';
 import axios from 'axios';
@@ -45,19 +44,9 @@ const ConfirmEmail = () => {
         setIsSecondLoading(false);
       })
       .catch((error) => {
-        if (error.code === 'ERR_BAD_REQUEST') {
-          toast.error(error?.response?.data?.message || error?.message, {
-            duration: 5000
-          });
-        } else if (error.code === 'ERR_NETWORK') {
-          toast.error('Pas de connexion internet', {
-            duration: 5000
-          });
-        } else {
-          toast.error('Code Invalide' || error.message, {
-            duration: 5000
-          });
-        }
+        toast.error(error?.response?.data || error?.message || 'Il y a eu une erreur', {
+          duration: 5000
+        });
         setIsSecondLoading(false);
       });
   }
@@ -84,20 +73,9 @@ const ConfirmEmail = () => {
         router.push('/');
       })
       .catch((error) => {
-        console.log(error);
-        if (error.code === 'ERR_BAD_REQUEST') {
-          toast.error(error?.response?.data?.message || error?.message, {
-            duration: 5000
-          });
-        } else if (error.code === 'ERR_NETWORK') {
-          toast.error('Pas de connexion internet', {
-            duration: 5000
-          });
-        } else {
-          toast.error(error.message, {
-            duration: 5000
-          });
-        }
+        toast.error(error?.response?.data || error?.message || 'Il y a eu une erreur', {
+          duration: 5000
+        });
         setIsLoading(false);
       });
   };

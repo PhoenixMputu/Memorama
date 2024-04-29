@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import axios from 'axios';
 import { Toaster, toast } from 'sonner';
 import Link from 'next/link';
@@ -13,6 +13,9 @@ import { User } from '../utils/types';
 const Signup = () => {
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const email = searchParams.get('email');
+  const token = searchParams.get('token');
   const {
     register,
     getValues,
@@ -25,34 +28,27 @@ const Signup = () => {
     if (data.password !== data.confirmPassword) return;
 
     axios
-      .post(`${process.env.apiUrl}/auth/signup`, {
-        lastname: data.lastname,
-        firstname: data.firstname,
-        email: data.email,
-        password: data.password
-      })
-      .then((response) => {
-        const token = response.data.token;
-        const email = response.data.user.email;
+      .post(
+        `${process.env.apiUrl}/auth/reset-password`,
+        {
+          token: token,
+          email: email,
+          password: data.password
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`
+          }
+        }
+      )
+      .then(() => {
         setIsLoading(false);
-        router.push('/confirm-email?email=' + email + '&token=' + token);
+        router.push('/');
       })
       .catch((error) => {
-        console.log(error);
-
-        if (error.code === 'ERR_BAD_REQUEST') {
-          toast.error(error?.response?.data?.message || error?.message, {
-            duration: 5000
-          });
-        } else if (error.code === 'ERR_NETWORK') {
-          toast.error('Pas de connexion internet', {
-            duration: 5000
-          });
-        } else {
-          toast.error(error.message, {
-            duration: 5000
-          });
-        }
+        toast.error(error?.response?.data || error?.message || 'Il y a eu une erreur', {
+          duration: 5000
+        });
         setIsLoading(false);
       });
   };
@@ -118,7 +114,7 @@ const Signup = () => {
                 : 'flex justify-center font-heebo items-center w-full py-2 text-center text-white text-base font-medium bg-blue-500 hover:bg-blue-600 active:bg-blue-700 rounded-lg'
             }
           >
-            {isLoading ? <Loader color="blue" size={24} /> : "Changer le mot de passe"}
+            {isLoading ? <Loader color="blue" size={24} /> : 'Changer le mot de passe'}
           </button>
           <p className="text-base font-heebo">
             {"J'ai déjà un compte ?"}{' '}

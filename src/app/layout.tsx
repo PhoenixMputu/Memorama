@@ -1,15 +1,15 @@
 import React from 'react';
 import type { Metadata } from 'next';
 import { Heebo } from 'next/font/google';
+import OnlineStatus from './components/OnlineStatus';
 import './globals.css';
 
 const heebo = Heebo({
   subsets: ['latin'],
-  weight: ['400','700'],
+  weight: ['400', '700'],
   variable: '--font-heebo',
-  display: 'swap',
+  display: 'swap'
 });
-
 
 export const metadata: Metadata = {
   title: 'Memorama',
@@ -24,7 +24,10 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="fr">
-      <body className={heebo.className}>{children}</body>
+      <body className={heebo.className}>
+        <OnlineStatus />
+        {children}
+      </body>
     </html>
   );
 }

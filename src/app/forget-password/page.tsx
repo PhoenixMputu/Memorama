@@ -20,13 +20,12 @@ const ForgetPassword = () => {
   const onSubmit: SubmitHandler<User> = (data) => {
     setIsLoading(true);
     axios
-      .post(`${process.env.apiUrl}/auth/signin`, {
+      .post(`${process.env.apiUrl}/auth/forget-password`, {
         email: data.email,
-        password: data.password
       })
       .then(() => {
         setIsLoading(false);
-        router.push('/');
+        router.push('/send-email-success');
       })
       .catch((error) => {
         toast.error(error?.response?.data || error?.message || 'Il y a eu une erreur', {
