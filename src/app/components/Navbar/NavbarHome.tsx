@@ -77,7 +77,7 @@ export default function NavbarHome() {
             Examiner le document
           </Link>
           <Link
-            href="#"
+            href='/signin'
             className="text-sm border border-blue-500 bg-white font-medium font-heebo px-4 py-2 rounded text-blue-600"
           >
             Se Connecter
