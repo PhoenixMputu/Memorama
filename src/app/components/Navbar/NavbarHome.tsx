@@ -73,7 +73,7 @@ export default function NavbarHome() {
           </Popover.Group>
         </div>
         <div className="flex justify-end gap-5 items-center">
-          <Link href="#" className="text-sm bg-blue-500 font-medium font-heebo px-4 py-2 rounded text-white">
+          <Link href="#" className="text-sm bg-blue-500 hover:bg-blue-600 focus:outline focus:outline-offset-1 focus:outline-blue-400 active:bg-blue-700 font-medium font-heebo px-4 py-2 rounded text-white">
             Examiner le document
           </Link>
           <Link
