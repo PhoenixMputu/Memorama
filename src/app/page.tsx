@@ -1,8 +1,10 @@
-import NavbarHome from "./components/Navbar/NavbarHome";
+'use client';
+import Navbar from "./components/Navbar";
+
 export default function Home() {
   return (
     <>
-      <NavbarHome/>
+      <Navbar/>
     </>
   );
 }
